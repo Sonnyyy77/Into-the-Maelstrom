@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #000000;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+#eyeMask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    animation: openEyes 4s ease-in-out forwards;
+}
+
+#myRoom {
+    text-align: center;
+    visibility: hidden;
+    opacity: 0;
+    animation: fadeInRoom 3s ease-in-out forwards;
+    animation-delay: 3s;
+}
+
+#story {
+    opacity: 1;
+    transition: opacity 1s ease-out;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* visibility: hidden; */
+    opacity: 0;
+    animation: fadeInCanvas 3s ease-in-out forwards;
+    animation-delay: 6s;
+}
+
+#wallCanvas {
+    z-index: 2;
+    background-color: transparent !important;
+    visibility: hidden;
+    opacity: 0;
+    animation: fadeInCanvas 1.5s ease-in-out forwards;
+    animation-delay: 6s;
+}
+
+#sandstormCanvas {
+    z-index: 1;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    clip-path: inset(
+        calc(50% - 30vh)
+        calc(50% - 30vw)
+        calc(50% - 30vh)
+        calc(50% - 30vw)
+    );
+}
+
+#crackCanvas {
+    z-index: 3;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.loop-count {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Source Code Pro', monospace;
+    font-size: 14px;
+    z-index: 100;
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+    animation-delay: 2s;
+}
+
+.countdown {
+    position: fixed;
+    top: 20px;
+    right: 100px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Source Code Pro', monospace;
+    font-size: 14px;
+    z-index: 100;
+    opacity: 0;
+    animation: fadeIn 2s ease-in-out forwards;
+    animation-delay: 2s;
+    visibility: hidden;
+}
+
+@keyframes openEyes {
+    0% {
+        background-color: black;
+    }
+    100% {
+        background-color: white;
+    }
+}
+
+@keyframes fadeInRoom {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInCanvas {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

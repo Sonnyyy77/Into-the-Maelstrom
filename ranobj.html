@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            background: rgba(0, 0, 0);
+            overflow: hidden;
+            font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+            transform-origin: 0 0;
+        }
+        .emoji {
+            font-size: 4rem;
+            animation: float 2s ease-in-out infinite, shake 0.5s ease-in-out infinite;
+                   /* scalePulse 2s ease-in-out infinite; */
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        /* @keyframes scalePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        } */
+    </style>
+</head>
+<body>
+    <div class="emoji" id="emojiDisplay"></div>
+
+    <script>
+        // Emoji data
+        const EMOJI_SET = {
+            object: ['🕛','🖼️','🪞','♾️','🪑','🧳'],
+            face: ['👁️','👁️','👃','👂','👂','👄']
+        };
+
+        // Get type and index from URL parameters
+        const params = new URLSearchParams(location.search);
+        const type = params.get('type') || 'object';
+        const index = parseInt(params.get('index')) || 0;
+
+        // Set emoji
+        document.getElementById('emojiDisplay').textContent = 
+            EMOJI_SET[type][index % EMOJI_SET[type].length];
+        
+        // Set background color based on type
+        document.body.style.background = type === 'face' ? 'rgba(255, 255, 255)' : 'rgba(0, 0, 0)';
+
+        window.addEventListener('message', function(e) {
+            if (e.data === 'FORCE_CLOSE') {
+                window.close();
+            }
+
+            if (e.data.action === 'scaleUp') {
+                const duration = e.data.duration || 7000;
+                
+                // Add scaling animation
+                document.body.style.transition = `transform ${duration}ms ease-in-out`;
+                document.body.style.transform = 'scale(2.5) translate(-30%, -30%)';
+
+            }
+
+        });
+        
+        // Confirm before unloading
+        window.addEventListener('beforeunload', function(e) {
+            if(window.opener && !window.opener.closed){
+                window.opener.postMessage('CHILD_CLOSED', '*');
+            }
+        });
+
+    </script>
+</body>
+</html>

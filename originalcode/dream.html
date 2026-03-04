@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dream Window Prototype</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+
+    #dream-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .dream-window {
+      position: absolute;
+      border: 1px solid #ccc;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+    }
+
+    .dream-window:active {
+      cursor: grabbing;
+    }
+
+    .dragging {
+      cursor: grabbing !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="dream-container"></div>
+
+  <script>
+    class DreamWindow {
+      constructor(content) {
+        this.element = document.createElement('div');
+        this.element.className = 'dream-window';
+        this.element.innerHTML = content;
+        this.setRandomPosition();
+        this.addInteractions();
+        document.getElementById('dream-container').appendChild(this.element);
+      }
+
+      setRandomPosition() {
+        const x = Math.random() * window.innerWidth * 0.8;
+        const y = Math.random() * window.innerHeight * 0.8;
+        this.element.style.left = `${x}px`;
+        this.element.style.top = `${y}px`;
+        this.element.style.width = `${200 + Math.random() * 200}px`;
+        this.element.style.height = `${150 + Math.random() * 150}px`;
+      }
+
+      addInteractions() {
+        // 点击放大
+        this.element.addEventListener('click', () => {
+          this.element.style.transform = 'scale(1.2)';
+          this.element.style.zIndex = 1000;
+        });
+
+        // 双击关闭
+        this.element.addEventListener('dblclick', () => {
+          this.element.remove();
+        });
+
+        // 拖拽移动
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        this.element.addEventListener('mousedown', (e) => {
+          isDragging = true;
+          offsetX = e.offsetX;
+          offsetY = e.offsetY;
+          
+          // 添加防选中处理
+          document.body.style.cursor = 'grabbing';
+          this.element.classList.add('dragging');
+          
+          // 阻止默认选中行为
+          e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+          if (isDragging) {
+            this.element.style.left = `${e.pageX - offsetX}px`;
+            this.element.style.top = `${e.pageY - offsetY}px`;
+            
+            // 持续阻止选中
+            e.preventDefault();
+          }
+        });
+
+        document.addEventListener('mouseup', () => {
+          if (isDragging) {
+            isDragging = false;
+            document.body.style.cursor = 'default';
+            this.element.classList.remove('dragging');
+          }
+        });
+      }
+    }
+
+    function createRandomWindow() {
+      const content = `<div style="padding: 10px;">
+        <h3>Dream ${Math.floor(Math.random()*100)}</h3>
+        <p>This is a dream window</p>
+      </div>`;
+      new DreamWindow(content);
+    }
+
+    // 每3秒生成一个新窗口
+    setInterval(createRandomWindow, 3000);
+
+    // 初始创建3个窗口
+    for (let i = 0; i < 3; i++) {
+      createRandomWindow();
+    }
+  </script>
+</body>
+</html>

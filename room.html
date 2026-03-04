@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="room.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <title>Room</title>
+</head>
+<body>
+    <div id="eyeMask"></div>
+
+    <div id="myRoom">
+        <h3 id="story"></h3>
+    </div>
+
+    <div id="loopCount" class="loop-count">Loop 1</div>
+    <div id="countdown" class="countdown">30s</div>
+
+    <canvas id="wallCanvas"></canvas>
+    <canvas id="sandstormCanvas"></canvas>
+    <canvas id="crackCanvas"></canvas>
+
+    <div id="windowFrames">
+    </div>
+
+    <audio id="sandstormSound" loop>
+        <source src="assets/sandstormSound.MP3" type="audio/mpeg">
+    </audio>
+
+    <audio id="crackingSound">
+        <source src="assets/cracking.MP3" type="audio/mpeg">
+    </audio>
+
+    <audio id="earthquakeSound" loop>
+        <source src="assets/earthquake.MP3" type="audio/mpeg">
+    </audio>
+
+    <script src="room.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            background-color: black;
+            font-family: 'Roboto', sans-serif;
+            /* color: #FEBC2E; */
+            /* color: #F3CE32; */
+            color: rgb(255, 255, 255);
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #subtitle {
+            font-size: 30px;
+            font-weight: 500;
+            /* color: #FEBC2E; */
+            /* color: #F3CE32; */
+            color: rgb(255, 255, 255);
+            /* text-shadow: 0 0 10px rgb(243, 204, 48); */
+            text-align: center;
+            padding: 20px;
+            max-width: 80%;
+            opacity: 0;
+            font-family: 'Roboto', sans-serif;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .visible {
+            opacity: 1 !important;
+        }
+    </style>
+    <title>Subtitle</title>
+</head>
+<body>
+    <div id="subtitle"></div>
+    <script>
+        // Listen for messages from the parent window
+        window.addEventListener('message', function(event) {
+            const subtitle = document.getElementById('subtitle');
+            if (event.data.text) {
+                subtitle.textContent = event.data.text;
+                subtitle.classList.add('visible');
+            }
+            if (event.data.hide) {
+                subtitle.classList.remove('visible');
+            }
+        });
+    </script>
+</body>
+</html> 

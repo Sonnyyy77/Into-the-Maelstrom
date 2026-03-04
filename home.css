@@ -1,0 +1,185 @@
+html, body {
+    margin: 0;
+    background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%);
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+
+#particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#myButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.start-button {
+    appearance: none;
+    background: radial-gradient(circle, 
+        rgba(42, 42, 138, 0.8) 0%,
+        rgba(42, 42, 138, 0.6) 50%,
+        rgba(42, 42, 138, 0.4) 75%,
+        rgba(42, 42, 138, 0.2) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-style: none;
+    cursor: none !important;
+    padding: 15px 30px;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(74, 74, 154, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.button-text {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    font-family: 'Roboto', sans-serif;
+}
+
+.button-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, 
+        rgba(255,255,255,0.3) 0%,
+        rgba(255,255,255,0.2) 50%,
+        rgba(255,255,255,0.1) 100%
+    );
+    border-radius: 30px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.start-button:hover {
+    background: radial-gradient(circle, 
+        rgba(42, 42, 138, 0.9) 0%,
+        rgba(42, 42, 138, 0.7) 50%,
+        rgba(42, 42, 138, 0.5) 75%,
+        rgba(42, 42, 138, 0.3) 100%
+    );
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.start-button:hover .button-glow {
+    opacity: 1;
+}
+
+.start-button:hover .button-text {
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+.start-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        rgba(255,255,255,0.2) 0%,
+        rgba(255,255,255,0.1) 25%,
+        rgba(255,255,255,0.2) 50%,
+        rgba(255,255,255,0.1) 75%,
+        rgba(255,255,255,0.2) 100%
+    );
+    border-radius: 30px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.start-button:hover::before {
+    opacity: 0.5;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.start-button {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes shrinkToCenter {
+  0% {
+      opacity: 1;
+      transform: scale(1) translate(0, 0);
+  }
+  100% {
+      opacity: 0;
+      transform: scale(0.1) translate(0, 0);
+  }
+}
+
+.shrinking {
+  animation: shrinkToCenter 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        visibility: visible;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 2s ease-out forwards;
+}
+
+.message-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 2s ease-in-out;
+    z-index: 1000;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.message-container.visible {
+    opacity: 1;
+    visibility: visible;
+}

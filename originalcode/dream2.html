@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dream Popup Prototype</title>
+  <style>
+    body {
+      padding: 20px;
+    }
+    button {
+      padding: 10px;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="createRandomWindow()">手动创建窗口</button>
+  <button onclick="toggleAutoCreate()">自动创建开关</button>
+
+  <script>
+    let popups = new Set();
+    let autoCreateInterval = null;
+
+    // 基础窗口模板
+    const getWindowHtml = (id, content) => `
+      <html>
+        <head>
+          <style>
+            body {
+              margin: 0;
+              padding: 10px;
+              overflow: hidden;
+              background: rgba(255,255,255,0.95);
+            }
+            .draggable-bar {
+              background: #eee;
+              padding: 5px;
+              cursor: move;
+              border-bottom: 1px solid #ccc;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="draggable-bar">🪟 Dream Window ${id}</div>
+          <div>${content}</div>
+          <script>
+            (function() {
+              let isDragging = false;
+              let startX, startY;
+              
+              document.querySelector('.draggable-bar').addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.screenX;
+                startY = e.screenY;
+                e.preventDefault();
+              });
+
+              window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                  window.moveBy(e.screenX - startX, e.screenY - startY);
+                  startX = e.screenX;
+                  startY = e.screenY;
+                }
+              });
+
+              window.addEventListener('mouseup', () => {
+                isDragging = false;
+              });
+
+              // 关闭按钮
+              window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') window.close();
+              });
+            })();
+          <\/script>
+        </body>
+      </html>
+    `;
+
+    function createRandomWindow() {
+      const id = Date.now();
+      const content = `Dream Content ${Math.floor(Math.random()*100)}`;
+      
+      // 生成随机窗口参数
+      const width = 200 + Math.random() * 300;
+      const height = 150 + Math.random() * 200;
+      const left = Math.random() * (screen.width - width);
+      const top = Math.random() * (screen.height - height);
+
+      // 创建新窗口
+      const newWindow = window.open(
+        '',
+        `window_${id}`,
+        `width=${width},height=${height},left=${left},top=${top}`
+      );
+
+      if (newWindow) {
+        newWindow.document.write(getWindowHtml(id, content));
+        newWindow.addEventListener('beforeunload', () => {
+          popups.delete(newWindow);
+        });
+        popups.add(newWindow);
+      } else {
+        alert('请允许弹出窗口！');
+      }
+    }
+
+    function toggleAutoCreate() {
+      if (autoCreateInterval) {
+        clearInterval(autoCreateInterval);
+        autoCreateInterval = null;
+      } else {
+        autoCreateInterval = setInterval(() => {
+          if (popups.size < 5) { // 限制最大窗口数量
+            createRandomWindow();
+          }
+        }, 3000);
+      }
+    }
+
+    // 关闭所有窗口
+    window.addEventListener('beforeunload', () => {
+      popups.forEach(win => win.close());
+    });
+  </script>
+</body>
+</html>
