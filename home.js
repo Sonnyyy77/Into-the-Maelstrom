@@ -34,6 +34,7 @@ let cursorParticle;
 let cursorPulseSpeed = 0.05; // Speed of the pulse animation
 let cursorPulsePhase = 0; // Phase of the pulse animation
 let isHoveringButton = false;
+let hintSuckingInProgress = false;
 let bgMusic; // Add background music variable
 
 // Array of text to display
@@ -169,6 +170,13 @@ function draw() {
     // Update fade-in progress
     if (millis() >= fadeInStartTime && fadeInProgress < 1) {
         fadeInProgress = min(1, (millis() - fadeInStartTime) / fadeInDuration);
+    }
+    // Fade in the window hint in sync with particles (only when not absorbing or sucking)
+    if (!isAbsorbing && !hintSuckingInProgress) {
+        const hintEl = document.getElementById('window-hint');
+        if (hintEl && hintEl.style.visibility !== 'hidden') {
+            hintEl.style.opacity = String(fadeInProgress);
+        }
     }
 
     // Update cursor particle position to follow mouse
@@ -548,6 +556,26 @@ startButton.addEventListener('click', function() {
     blackHoleActive = true;
     blackHoleStrength = 0;
     fadeToBlack = 0;
+
+    // Fade out the window hint in place when entering the dream
+    const hintEl = document.getElementById('window-hint');
+    if (hintEl) {
+        hintSuckingInProgress = true;
+        const duration = 600;
+        const startTime = performance.now();
+        function fadeHint() {
+            const t = (performance.now() - startTime) / duration;
+            if (t >= 1) {
+                hintEl.style.visibility = 'hidden';
+                hintEl.style.opacity = '0';
+                hintSuckingInProgress = false;
+                return;
+            }
+            hintEl.style.opacity = String(1 - t);
+            requestAnimationFrame(fadeHint);
+        }
+        requestAnimationFrame(fadeHint);
+    }
 
     // Animate black hole strength and background fade
     let strengthInterval = setInterval(() => {
