@@ -1,0 +1,8 @@
+{"sessionId":"e352a5","location":"room.js:setup","message":"room setup dimensions","data":{"loopCountFromStorage":"3","outerWidth":1496,"outerHeight":944,"innerWidth":1496,"innerHeight":881},"timestamp":1772671034845,"hypothesisId":"H1_H2_H5"}
+{"sessionId":"e352a5","location":"room.js:createCanvas","message":"canvas size used","data":{"canvasW":1496,"canvasH":881},"timestamp":1772671034845,"hypothesisId":"H1"}
+{"sessionId":"e352a5","location":"room.js:setup","message":"room setup dimensions","data":{"loopCountFromStorage":"3","outerWidth":1496,"outerHeight":944,"innerWidth":1496,"innerHeight":881},"timestamp":1772671035169,"hypothesisId":"H1_H2_H5"}
+{"sessionId":"e352a5","location":"room.js:createCanvas","message":"canvas size used","data":{"canvasW":1496,"canvasH":881},"timestamp":1772671035169,"hypothesisId":"H1"}
+{"sessionId":"e352a5","location":"room.js:setup","message":"room setup dimensions","data":{"loopCountFromStorage":"3","outerWidth":1496,"outerHeight":944,"innerWidth":1496,"innerHeight":881},"timestamp":1772671035325,"hypothesisId":"H1_H2_H5"}
+{"sessionId":"e352a5","location":"room.js:createCanvas","message":"canvas size used","data":{"canvasW":1496,"canvasH":881},"timestamp":1772671035326,"hypothesisId":"H1"}
+{"sessionId":"e352a5","location":"room.js:setup","message":"room setup dimensions","data":{"loopCountFromStorage":"3","outerWidth":1496,"outerHeight":944,"innerWidth":1496,"innerHeight":881},"timestamp":1772671035481,"hypothesisId":"H1_H2_H5"}
+{"sessionId":"e352a5","location":"room.js:createCanvas","message":"canvas size used","data":{"canvasW":1496,"canvasH":881},"timestamp":1772671035481,"hypothesisId":"H1"}
